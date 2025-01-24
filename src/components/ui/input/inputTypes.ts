@@ -3,6 +3,6 @@ export interface inputTypesProps{
     placeholder: string;
     value: string;
     onChange: (e) => void;
-    label: string;
+    label?: string;
     name: string;
 }
