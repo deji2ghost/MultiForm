@@ -21,10 +21,16 @@ const HeroSection = ({ numbers }: NumberProps) => {
     name: "",
     number: "",
     addOns: [],
-    plan: {},
+    plan: {
+      img: "",
+      name: "",
+      monthly: "",
+      yearly: "",
+      extras: "",
+    },
   });
   const [highlightDiv, setHighlightDiv] = useState<string | null>(null);
-  const [monthly, setMonthly] = useState("monthly");
+  const [monthly, setMonthly] = useState(true);
 
   const handleChange = (e) => {
     setFormData({
@@ -43,7 +49,7 @@ const HeroSection = ({ numbers }: NumberProps) => {
     } else {
       setFormData((prevData) => ({
         ...prevData,
-        addOns: prevData.addOns.filter((item) => item.name !== name),
+        addOns: prevData.addOns.filter((item) => item?.name !== name),
       }));
     }
   };
@@ -142,7 +148,7 @@ const HeroSection = ({ numbers }: NumberProps) => {
                   <Input
                     name={item?.name}
                     type="checkbox"
-                    value={monthly === "monthly" ? item?.monthly : item?.yearly}
+                    value={monthly ? item?.monthly : item?.yearly}
                     onChange={handleCheckChange}
                     placeholder="e.g Stephen King"
                   />
@@ -151,7 +157,7 @@ const HeroSection = ({ numbers }: NumberProps) => {
                   <h1 className="">{item?.name}</h1>
                   <p className="">{item?.desc}</p>
                 </div>
-                <p>{monthly === "monthly" ? item?.monthly : item?.yearly}</p>
+                <p>{monthly ? item?.monthly : item?.yearly}</p>
               </div>
             ))}
           </>
@@ -162,26 +168,29 @@ const HeroSection = ({ numbers }: NumberProps) => {
             description="Double-check everything looks okay before confirming"
             header="Finishing Up"
           />
-          <>
-            {checkBox.map((item) => (
-              <div className="flex items-center ">
-                <div>
-                  <Input
-                    name={item?.name}
-                    type="checkbox"
-                    value={monthly === "monthly" ? item?.monthly : item?.yearly}
-                    onChange={handleCheckChange}
-                    placeholder="e.g Stephen King"
-                  />
-                </div>
-                <div>
-                  <h1 className="">{item?.name}</h1>
-                  <p className="">{item?.desc}</p>
-                </div>
-                <p>{monthly === "monthly" ? item?.monthly : item?.yearly}</p>
+          <div className="bg-LightBlue">
+            <div>
+              <div className="flex items-center justify-between">
+                <h1>{formData?.plan?.name} ({monthly ? "Monthly" : "Yearly"})</h1>
+                <p onClick={() => setMonthly(!monthly)}>Change</p>
               </div>
-            ))}
-          </>
+              <div>
+                { monthly ? formData.plan.monthly : formData.plan.yearly }
+              </div>
+            </div>
+            <div>
+              { 
+                formData.addOns.map(item => {
+                  return(
+                    <div>
+                      <h1>{item?.name}</h1>
+                      {/* <p>{monthly ? item.month}</p> */}
+                    </div>
+                  )
+                })
+              }
+            </div>
+          </div>
         </>
       ) : null}
     </div>
