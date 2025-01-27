@@ -19,13 +19,15 @@ const FormSection = () => {
     }
 
   return (
-    <div className="relative lg:w-[80%] bg-LightBlue mx-auto flex flex-col justify-between min-h-screen">
-      <NumberComponent />
-      <HeroSection numbers={numbers}/>
-      <div className="flex items-center justify-between bg-white py-[10px] px-2">
-        <Button disabled={numbers === 1} text="Go Back" handleClick={handleBackButtonClick} />
-        <Button disabled={numbers === 4} text="Next" handleClick={handleNextButtonClick} />
-      </div>
+    <div className="relative lg:w-[80%] lg:bg-white lg:p-[12px] rounded-md bg-LightBlue mx-auto flex flex-col lg:flex-row lg:items-center lg:justify-center justify-between h-screen lg:h-[565px] lg:absolute lg:mx-auto left-0 right-0 lg:top-1/2 lg:-translate-y-1/2">
+        <NumberComponent />
+        <div className="lg:flex lg:flex-col lg:justify-between lg:w-full lg:bg-white lg:px-20 h-full">
+          <HeroSection numbers={numbers}/>
+          <div className="flex items-center justify-between bg-white py-[10px] px-6 md:px-11 lg:px-0">
+            <Button disabled={numbers === 1} text="Go Back" handleClick={handleBackButtonClick} />
+            <Button disabled={numbers === 4} text="Next" handleClick={handleNextButtonClick} />
+          </div>
+        </div>
     </div>
   )
 }

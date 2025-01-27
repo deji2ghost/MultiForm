@@ -7,6 +7,17 @@ interface NumberProps {
   numbers: number;
 }
 
+interface AddOn{
+  name: string,
+  plan: string,
+}
+interface FormDataProps {
+  email: string;
+  name: string;
+  number: string;
+  addOns: AddOn[];
+  plan: PlanProps;
+}
 interface PlanProps {
   img: string;
   name: string;
@@ -16,7 +27,7 @@ interface PlanProps {
 }
 
 const HeroSection = ({ numbers }: NumberProps) => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormDataProps>({
     email: "",
     name: "",
     number: "",
@@ -32,14 +43,14 @@ const HeroSection = ({ numbers }: NumberProps) => {
   const [highlightDiv, setHighlightDiv] = useState<string | null>(null);
   const [monthly, setMonthly] = useState(true);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleCheckChange = (e) => {
+  const handleCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, checked } = e.target;
     if (checked) {
       setFormData((prevData) => ({
@@ -74,7 +85,7 @@ const HeroSection = ({ numbers }: NumberProps) => {
   }, [formData, numbers]);
 
   return (
-    <div className="bg-white flex flex-col gap-3 mx-auto w-[90%] absolute left-0 right-0 top-24 rounded-md p-6">
+    <div className="bg-white border flex flex-col gap-3 mx-auto w-[90%] lg:w-full absolute lg:static left-0 right-0 top-24 rounded-md p-6 lg:p-0">
       {numbers === 1 ? (
         <>
           <Header
