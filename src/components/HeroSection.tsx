@@ -10,6 +10,7 @@ interface NumberProps {
 interface AddOn{
   name: string,
   plan: string,
+  id: string;
 }
 interface FormDataProps {
   email: string;
@@ -51,11 +52,11 @@ const HeroSection = ({ numbers }: NumberProps) => {
   };
 
   const handleCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, checked } = e.target;
+    const { name, value, checked, id } = e.target;
     if (checked) {
       setFormData((prevData) => ({
         ...prevData,
-        addOns: [...prevData.addOns, { name: name, plan: value }],
+        addOns: [...prevData.addOns, { name: name, plan: value, id: id }],
       }));
     } else {
       setFormData((prevData) => ({
@@ -154,19 +155,23 @@ const HeroSection = ({ numbers }: NumberProps) => {
           />
           <>
             {checkBox.map((item) => (
-              <div className="flex items-center ">
-                <div>
-                  <Input
-                    name={item?.name}
-                    type="checkbox"
-                    value={monthly ? item?.monthly : item?.yearly}
-                    onChange={handleCheckChange}
-                    placeholder="e.g Stephen King"
-                  />
-                </div>
-                <div>
-                  <h1 className="">{item?.name}</h1>
-                  <p className="">{item?.desc}</p>
+              <div className="flex items-center justify-between ">
+                <div className="flex items-center gap-5">
+                  <div>
+                    <Input
+                      name={item?.name}
+                      type="checkbox"
+                      id={monthly ? item.yearly : item?.monthly}
+                      value={monthly ? item?.monthly : item?.yearly}
+                      checked={formData.addOns.some((addOn) => addOn.name === item?.name)}
+                      onChange={handleCheckChange}
+                      placeholder="e.g Stephen King"
+                    />
+                  </div>
+                  <div>
+                    <h1 className="">{item?.name}</h1>
+                    <p className="">{item?.desc}</p>
+                  </div>
                 </div>
                 <p>{monthly ? item?.monthly : item?.yearly}</p>
               </div>
@@ -180,12 +185,12 @@ const HeroSection = ({ numbers }: NumberProps) => {
             header="Finishing Up"
           />
           <div className="bg-LightBlue">
-            <div>
-              <div className="flex items-center justify-between">
+            <div className="flex justify-between border-b">
+              <div className="flex flex-col gap-1">
                 <h1>{formData?.plan?.name} ({monthly ? "Monthly" : "Yearly"})</h1>
                 <p onClick={() => setMonthly(!monthly)}>Change</p>
               </div>
-              <div>
+              <div className="">
                 { monthly ? formData.plan.monthly : formData.plan.yearly }
               </div>
             </div>
@@ -193,9 +198,9 @@ const HeroSection = ({ numbers }: NumberProps) => {
               { 
                 formData.addOns.map(item => {
                   return(
-                    <div>
+                    <div className="flex justify-between">
                       <h1>{item?.name}</h1>
-                      {/* <p>{monthly ? item.month}</p> */}
+                      <p>{monthly ? item.plan : item?.id}</p>
                     </div>
                   )
                 })

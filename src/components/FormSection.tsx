@@ -19,7 +19,7 @@ const FormSection = () => {
     }
 
   return (
-    <div className="relative lg:w-[80%] lg:bg-white lg:p-[12px] rounded-md bg-LightBlue mx-auto flex flex-col lg:flex-row lg:items-center lg:justify-center justify-between h-screen lg:h-[565px] lg:absolute lg:mx-auto left-0 right-0 lg:top-1/2 lg:-translate-y-1/2">
+    <div className="relative lg:w-[80%] lg:bg-white lg:p-[12px] rounded-md bg-LightBlue mx-auto flex flex-col lg:flex-row lg:items-center lg:justify-center justify-between min-h-screen lg:min-h-0 lg:h-[565px] lg:absolute lg:mx-auto left-0 right-0 lg:top-1/2 lg:-translate-y-1/2">
         <NumberComponent />
         <div className="lg:flex lg:flex-col lg:justify-between lg:w-full lg:bg-white lg:px-20 h-full">
           <HeroSection numbers={numbers}/>
